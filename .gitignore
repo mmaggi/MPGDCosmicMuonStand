@@ -1,0 +1,11 @@
+# Editor backups
+*~
+*.swp
+*.bak
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Logs
+*.log
