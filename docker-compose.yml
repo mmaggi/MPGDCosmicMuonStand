@@ -1,0 +1,35 @@
+services:
+  influxdb:
+    image: influxdb:1.8
+    ports:
+      - "8086:8086"
+    environment:
+      - INFLUXDB_DB=mydb
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=adminpass
+    volumes:
+      - influxdb-data:/var/lib/influxdb
+
+  grafana:
+    image: grafana/grafana-oss
+    ports:
+      - "3000:3000"
+    depends_on:
+      - influxdb
+    volumes:
+      - grafana-data:/var/lib/grafana
+
+  pycaenhv:
+    build:
+      context: ./pycaenhv-app
+    image: yourusername/pycaenhv:latest
+    depends_on:
+      - influxdb
+    volumes:
+      - ./pycaenhv-app:/app
+    environment:
+      - INFLUXDB_HOST=influxdb
+
+volumes:
+  influxdb-data:
+  grafana-data:
