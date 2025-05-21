@@ -20,6 +20,7 @@ services:
       - grafana-data:/var/lib/grafana
 
   pycaenhv:
+    platform: linux/amd64
     build:
       context: ./pycaenhv-app
     image: yourusername/pycaenhv:latest
