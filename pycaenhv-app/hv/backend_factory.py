@@ -1,4 +1,4 @@
-from hv.interface import HVSystem, default_mode
+Afrom hv.interface import HVSystem, default_mode
 from hv.fake_sy1527 import FakeSY1527
 # from real_sy1527 import RealSY1527  # Uncomment when available
 import os

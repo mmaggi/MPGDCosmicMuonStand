@@ -101,6 +101,14 @@ class HVCosmicStandShell(cmd.Cmd):
         except ValueError:
             print("Usage: set <ch> <V0>")
 
+    def do_maxI0(self, args):
+        "Set I0 for a channel: maxI0 <ch> <I0>"
+        try:
+            ch, i0 = args.split()
+            self.hv.set_maxcurrent(ch, float(i0))
+        except ValueError:
+            print("Usage: maxI0 <ch> <I0>")
+
     def complete_set(self, text, line, begidx, endidx):
         return [c for c in self.channel_list if c.startswith(text)]
 
@@ -170,3 +178,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+B
