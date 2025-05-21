@@ -1,0 +1,29 @@
+{
+  "crate": "FakeSY1527",
+  "channels": {
+    "0": {
+      "name": "HV_CH_0",
+      "V0": 900.0,
+      "I0": 0.5,
+      "ramp_up": 50,
+      "ramp_down": 8,
+      "status": "ON"
+    },
+    "1": {
+      "name": "HV_CH_1",
+      "V0": 550.0,
+      "I0": 0.4,
+      "ramp_up": 5,
+      "ramp_down": 5,
+      "status": "RAMPING_UP"
+    },
+    "2": {
+      "name": "HV_CH_2",
+      "V0": 700.0,
+      "I0": 0.6,
+      "ramp_up": 12,
+      "ramp_down": 6,
+      "status": "OFF"
+    }
+  }
+}
