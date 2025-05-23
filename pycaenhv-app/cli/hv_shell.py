@@ -148,6 +148,16 @@ class HVCosmicStandShell(cmd.Cmd):
             print("\nStopped watching.")
             self.lastcmd = ""
             
+    def do_setname(self, arg):
+        "Set a new name for a channel: setname <channel_id> <new_name>"
+        try:
+            ch, name = arg.split()
+            ch = int(ch)
+            self.hv.set_name(ch, name)
+            print(f"Channel {ch} renamed to '{name}'")
+        except ValueError:
+            print("Usage: setname <channel_id> <new_name>")
+        
     def do_save(self, _):
         "Save current HV configuration back to config file"
         if self.mode == "fake":
@@ -178,4 +188,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-B
+

@@ -95,6 +95,14 @@ class FakeSY1527(HVSystem):
                 self.state[ch]["I0"] = I0
                 self.pipeline.push_i0(ch, I0)
                 
+    def set_name(self, ch, new_name):
+        with self._lock:
+            if ch in self.state:
+                self.state[ch]["name"] = new_name
+                self.pipeline.push_metadata(ch, new_name, valid_from=datetime.now(timezone.utc))
+
+
+                
     def get_status(self, ch):
         with self._lock:
             return dict(self.state[ch]) if ch in self.state else {}

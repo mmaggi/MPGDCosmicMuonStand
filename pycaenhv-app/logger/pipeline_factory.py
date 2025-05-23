@@ -8,10 +8,12 @@ class MonitorPipelineBase(ABC):
     @abstractmethod
     def push_vmon(self, channel, vmon, timestamp=None):
         pass
-        @abstractmethod
+    
+    @abstractmethod
     def push_imon(self, channel, imon, timestamp=None):
         pass
-        @abstractmethod
+    
+    @abstractmethod
     def push_status(self, channel, status, timestamp=None):
         pass
 

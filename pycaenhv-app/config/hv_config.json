@@ -15,7 +15,7 @@
       "I0": 0.4,
       "ramp_up": 5,
       "ramp_down": 5,
-      "status": "RAMPING_UP"
+      "status": "ON"
     },
     "2": {
       "name": "HV_CH_2",

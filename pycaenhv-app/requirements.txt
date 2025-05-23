@@ -1,2 +1,3 @@
 influxdb
+influxdb-client
 caen-libs
