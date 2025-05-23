@@ -26,7 +26,9 @@ class FakeSY1527(HVSystem):
             )
             
         self.state = {}
-        for ch, settings in config["channels"].items():
+
+        for chs, settings in config["channels"].items():
+            ch = int(chs)
             self.state[ch] = {
                 "name": settings["name"],
                 "V0": settings["V0"],
@@ -37,6 +39,7 @@ class FakeSY1527(HVSystem):
                 "Vmon": 0.0,
                 "Imon": 0.0
             }
+            
         self.running = True
         self._thread = threading.Thread(target=self._simulate_loop, daemon=True)
         self._thread.start()
@@ -71,36 +74,43 @@ class FakeSY1527(HVSystem):
                     self.pipeline.push_status(ch, s["status"], timestamp=now)
             time.sleep(random.uniform(0.5, 1.5))
 
-    def turn_on(self, ch):
+    def turn_on(self, chs):
         with self._lock:
+            ch = int(chs)
             if ch in self.state and self.state[ch]["status"] == "OFF":
                 self.state[ch]["status"] = "RAMPING_UP"
                 self.pipeline.push_control_status(ch,"ON")
                 
-    def turn_off(self, ch):
+    def turn_off(self, chs):
         with self._lock:
+            ch = int(chs)
             if ch in self.state and self.state[ch]["status"] == "ON":
                 self.state[ch]["status"] = "RAMPING_DOWN"
                 self.pipeline.push_control_status(ch,"OFF")
 
-    def set_voltage(self, ch, V0):
+    def set_voltage(self, chs, V0):
         with self._lock:
+            ch = int(chs)
             if ch in self.state:
                 self.state[ch]["V0"] = V0
                 self.pipeline.push_v0(ch, V0)
 
-    def set_maxcurrent(self, ch, I0):
+    def set_maxcurrent(self, chs, I0):
         with self._lock:
+            ch = int(chs)
             if ch in self.state:
                 self.state[ch]["I0"] = I0
                 self.pipeline.push_i0(ch, I0)
                 
     def set_name(self, ch, new_name):
+        print(f" sono fake per set_name")
         with self._lock:
+            print(f" In lock", ch)
+            print(self.state)
             if ch in self.state:
+                print(f"Setting name for channel {ch} to {new_name}")
                 self.state[ch]["name"] = new_name
                 self.pipeline.push_metadata(ch, new_name, valid_from=datetime.now(timezone.utc))
-
 
                 
     def get_status(self, ch):
